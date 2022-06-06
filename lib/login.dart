@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_dashboard/dashboard.dart';
 import 'package:responsive_dashboard/style/colors.dart';
+import 'package:provider/provider.dart';
+import 'auth_services.dart';
 
 class Login extends StatefulWidget {
 
@@ -14,6 +16,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController emailController=new TextEditingController();
+  TextEditingController passwordController=new TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -22,6 +26,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     final email = TextFormField(
+      controller: emailController,
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
       decoration: InputDecoration(
@@ -31,8 +36,9 @@ class _LoginState extends State<Login> {
     );
 
     final password = TextFormField(
-      autofocus: false,
       initialValue: '',
+      controller: passwordController,
+      autofocus: false,
       obscureText: true,
       decoration: InputDecoration(
         hintText: 'Mot de passe',
@@ -51,6 +57,19 @@ class _LoginState extends State<Login> {
                 fontSize: 15),),
 
             onPressed: () {
+              final String email = emailController.text.trim();
+              final String password = passwordController.text.trim();
+              if(email.isEmpty){
+                print("entrez votre email");
+              }
+              else{
+                if(password.isEmpty){
+                  print("entrez votre mot de passe");
+                }
+                else{
+                  context.read<AuthService>().login(email,password);
+                }
+              }
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => Dashboard()),
