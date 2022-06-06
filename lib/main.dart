@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_dashboard/dashboard.dart';
 import 'package:responsive_dashboard/style/colors.dart';
-
+import 'login.dart';
+import 'package:firebase_core/firebase_core.dart';
 void main() {
+  Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: AppColors.primaryBg
       ),
-      home: Dashboard(),
+      home: Login(),
     );
   }
 }

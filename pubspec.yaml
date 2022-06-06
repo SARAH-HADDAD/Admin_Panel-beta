@@ -30,6 +30,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^0.22.0
   fl_chart: ^0.35.0
+  firebase_core: ^1.17.1
+  firebase_auth: ^3.3.19
+  cloud_firestore: ^3.1.17
 
 
 dev_dependencies:
