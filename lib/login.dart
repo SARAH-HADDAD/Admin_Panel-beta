@@ -1,10 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_dashboard/dashboard.dart';
 import 'package:responsive_dashboard/style/colors.dart';
-import 'package:provider/provider.dart';
-import 'auth_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Login extends StatefulWidget {
 
@@ -16,17 +14,28 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  TextEditingController emailController=new TextEditingController();
-  TextEditingController passwordController=new TextEditingController();
   @override
   void initState() {
     super.initState();
   }
+//text controllers
+  final _emailController=TextEditingController(text: "");
+  final _passwordController=TextEditingController(text: "");
 
+  Future signIn() async{
+    await FirebaseAuth.instance.signInWithEmailAndPassword(email: _emailController.text.trim(), password: _passwordController.text.trim());
+
+}
+@override
+void dispose(){
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+}
   @override
   Widget build(BuildContext context) {
     final email = TextFormField(
-      controller: emailController,
+      controller: _emailController,
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
       decoration: InputDecoration(
@@ -36,8 +45,7 @@ class _LoginState extends State<Login> {
     );
 
     final password = TextFormField(
-      initialValue: '',
-      controller: passwordController,
+      controller: _passwordController,
       autofocus: false,
       obscureText: true,
       decoration: InputDecoration(
@@ -57,23 +65,8 @@ class _LoginState extends State<Login> {
                 fontSize: 15),),
 
             onPressed: () {
-              final String email = emailController.text.trim();
-              final String password = passwordController.text.trim();
-              if(email.isEmpty){
-                print("entrez votre email");
-              }
-              else{
-                if(password.isEmpty){
-                  print("entrez votre mot de passe");
-                }
-                else{
-                  context.read<AuthService>().login(email,password);
-                }
-              }
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Dashboard()),
-              );
+              signIn();
+
             }));
 
 
@@ -82,7 +75,7 @@ class _LoginState extends State<Login> {
 
     final forgotLabel = FlatButton(
       child: Text(
-        'Mot de passe oublié?',
+          'Mot de passe oublié?',
           style: TextStyle(
               color: Colors.pink,
               fontWeight: FontWeight.bold,
@@ -144,26 +137,26 @@ class _LoginState extends State<Login> {
                     loginButton,
                     SizedBox(height: 20.0),
 
-                        Center(
-                          child: FlatButton(
-                            child: Text(
-                              'Créer un compte',
-    style: TextStyle(
-    color: Colors.pink,
-    fontWeight: FontWeight.bold,
-    fontSize: 15)
+                    Center(
+                      child: FlatButton(
+                        child: Text(
+                            'Créer un compte',
+                            style: TextStyle(
+                                color: Colors.pink,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15)
 
-                            ),
-                            onPressed: () {},
-                          ),
                         ),
-                      ],
+                        onPressed: () {},
+                      ),
                     ),
-
-
+                  ],
                 ),
+
+
               ),
             ),
+          ),
         ],
       ),
     );
