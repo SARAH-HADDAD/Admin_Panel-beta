@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:responsive_dashboard/dashboard.dart';
 import 'package:responsive_dashboard/style/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'creerUnCompte.dart';
+import 'ForgetPassword.dart';
 
 class Login extends StatefulWidget {
 
@@ -81,7 +83,11 @@ void dispose(){
               fontWeight: FontWeight.bold,
               fontSize: 15)
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (BuildContext context) => ForgetPassword()));
+        //ForgetPassword
+      },
     );
     return Scaffold(
       backgroundColor: Colors.white,
@@ -147,7 +153,10 @@ void dispose(){
                                 fontSize: 15)
 
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context, MaterialPageRoute(builder: (BuildContext context) => SignUp()));
+                        },
                       ),
                     ),
                   ],
