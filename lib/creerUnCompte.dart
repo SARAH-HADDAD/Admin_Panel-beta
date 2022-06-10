@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:responsive_dashboard/dashboard.dart';
 import 'package:responsive_dashboard/style/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignUp extends StatefulWidget {
 
@@ -23,6 +24,9 @@ class _SignUpState extends State<SignUp> {
   final _passwordController=TextEditingController(text: "");
   final _confirmpasswordController=TextEditingController(text: "");
   final _codeController=TextEditingController(text: "");
+  final _firstnameController=TextEditingController(text: "");
+  final _lastnameController=TextEditingController(text: "");
+  final _phoneNumberController=TextEditingController(text: "");
 
   @override
   void dispose(){
@@ -30,16 +34,46 @@ class _SignUpState extends State<SignUp> {
     _passwordController.dispose();
     _confirmpasswordController.dispose();
     _codeController.dispose();
+    _firstnameController.dispose();
+    _lastnameController.dispose();
+    _phoneNumberController.dispose();
+
+    //num-de-téléphone
     super.dispose();
   }
   @override
   Future signUp() async{
     if(ConfirmAdmin()){
+      //creat user
     await FirebaseAuth.instance.createUserWithEmailAndPassword(
        email: _emailController.text.trim(),
         password: _passwordController.text.trim());
+    // add user details
+addUserDetails(
+    _firstnameController.text.trim(),
+    _lastnameController.text.trim(),
+    _emailController.text.trim(),
+    int.parse(_phoneNumberController.text.trim()));
+/*
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmpasswordController.dispose();
+    _codeController.dispose();
+    _firstnameController.dispose();
+    _lastnameController.dispose();
+    _phoneNumberController.dispose();
+*/
    }
 
+  }
+  Future addUserDetails(String firstName, String lastName, String email, int phoneNumber ) async{
+    await FirebaseFirestore.instance.collection('users').add({
+      'first name':firstName,
+      'last name':lastName,
+      'admin':true,
+      'email':email,
+      'phone_number':phoneNumber,
+    });
   }
   bool ConfirmAdmin(){
     if(_codeController.text.trim()=="7D17D2"){
@@ -83,8 +117,10 @@ class _SignUpState extends State<SignUp> {
 
             onPressed: () {
               signUp();
+             /*
               Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: (BuildContext context) => Dashboard()));
+             */
 
             }));
 
@@ -120,19 +156,47 @@ class _SignUpState extends State<SignUp> {
               child: Container(
                 padding: EdgeInsets.all(42),
                 width: MediaQuery.of(context).size.width / 2.5,
-                height: MediaQuery.of(context).size.height / 1.5,
+                height: MediaQuery.of(context).size.height / 1.2,
                 child: Column(
                   children: <Widget>[
-                    SizedBox(height: 62.0),
+                    SizedBox(height: 30.0),
                     Center(
                         child: Text(
                           "Créer un compte d’administrateur",
                           style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
+                            color: Colors.pink,
                           ),
                         )),
-                    SizedBox(height: 48.0),
+                    SizedBox(height: 30.0),
+                    TextFormField(
+                      controller: _firstnameController,
+                      autofocus: false,
+                      decoration: InputDecoration(
+                        hintText: 'Prénom',
+                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                      ),
+                    ),
+                    SizedBox(height: 8.0),
+                    TextFormField(
+                      controller: _lastnameController,
+                      autofocus: false,
+                      decoration: InputDecoration(
+                        hintText: 'Nom',
+                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                      ),
+                    ),
+                    SizedBox(height: 8.0),
+                    TextFormField(
+                      controller: _phoneNumberController,
+                      autofocus: false,
+                      decoration: InputDecoration(
+                        hintText: 'numéro de téléphone',
+                        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                      ),
+                    ),
+                    SizedBox(height: 8.0),
                     email,
                     SizedBox(height: 8.0),
                     password,
@@ -156,9 +220,8 @@ class _SignUpState extends State<SignUp> {
                         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                       ),
                     ),
-                    SizedBox(height: 20.0),
+                    SizedBox(height: 40.0),
                     SignUpButton,
-                    SizedBox(height: 20.0),
 
 
                   ],
