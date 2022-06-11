@@ -5,6 +5,7 @@ import 'package:responsive_dashboard/style/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'main_page.dart';
 class SignUp extends StatefulWidget {
 
 
@@ -54,15 +55,11 @@ addUserDetails(
     _lastnameController.text.trim(),
     _emailController.text.trim(),
     int.parse(_phoneNumberController.text.trim()));
-/*
-    _emailController.dispose();
-    _passwordController.dispose();
-    _confirmpasswordController.dispose();
-    _codeController.dispose();
-    _firstnameController.dispose();
-    _lastnameController.dispose();
-    _phoneNumberController.dispose();
-*/
+    await FirebaseAuth.instance.signInWithEmailAndPassword(email: _emailController.text.trim(), password: _passwordController.text.trim());
+
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (BuildContext context) => MainPage ()));
+
    }
 
   }

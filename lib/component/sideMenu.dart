@@ -44,16 +44,15 @@ class SideMenu extends StatelessWidget {
                   iconSize: 20,
                   padding: EdgeInsets.symmetric(vertical: 20.0),
                   icon: SvgPicture.asset(
-                    'assets/pie-chart.svg',
+                    'assets/1.svg',
                     color: AppColors.iconGray,
                   ),
                   onPressed: () {}),
               IconButton(
                   iconSize: 20,
                   padding: EdgeInsets.symmetric(vertical: 20.0),
-                  icon: SvgPicture.asset(
-                    'assets/clipboard.svg',
-                    color: AppColors.iconGray,
+                  icon: Image.asset(
+                    'assets/card.png'
                   ),
                   onPressed: () {}),
               IconButton(

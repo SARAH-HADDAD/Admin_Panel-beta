@@ -4,14 +4,15 @@ import 'package:responsive_dashboard/component/appBarActionItems.dart';
 import 'package:responsive_dashboard/component/barChart.dart';
 import 'package:responsive_dashboard/component/header.dart';
 import 'package:responsive_dashboard/component/historyTable.dart';
-import 'package:responsive_dashboard/component/infoCard.dart';
-import 'package:responsive_dashboard/component/paymentDetailList.dart';
+import 'package:responsive_dashboard/component/DetailList.dart';
 import 'package:responsive_dashboard/component/sideMenu.dart';
 import 'package:responsive_dashboard/config/responsive.dart';
 import 'package:responsive_dashboard/config/size_config.dart';
+import 'package:responsive_dashboard/home_page.dart';
 import 'package:responsive_dashboard/style/colors.dart';
 import 'package:responsive_dashboard/style/style.dart';
-
+import 'package:flutter_svg/avd.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Dashboard extends StatelessWidget {
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
@@ -58,34 +59,319 @@ final user=FirebaseAuth.instance.currentUser;
                       children: [
                         Header(),
                         SizedBox(
-                          height: SizeConfig.blockSizeVertical * 4,
+                          height: 30,
                         ),
-                        SizedBox(
-                          width: SizeConfig.screenWidth,
-                          child: Wrap(
-                            spacing: 20,
-                            runSpacing: 20,
-                            alignment: WrapAlignment.spaceBetween,
-                            children: [
-                              InfoCard(
-                                  icon: 'assets/credit-card.svg',
-                                  label: 'Transafer via \nCard number',
-                                  amount: '\$1200'),
-                              InfoCard(
-                                  icon: 'assets/transfer.svg',
-                                  label: 'Transafer via \nOnline Banks',
-                                  amount: '\$150'),
-                              InfoCard(
-                                  icon: 'assets/bank.svg',
-                                  label: 'Transafer \nSame Bank',
-                                  amount: '\$1500'),
-                              InfoCard(
-                                  icon: 'assets/invoice.svg',
-                                  label: 'Transafer to \nOther Bank',
-                                  amount: '\$1500'),
-                            ],
-                          ),
+                        // à modifier
+
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+
+                                      Navigator.pushReplacement(
+                                          context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+                                    print('onTap');
+                                  },
+                                child:
+                                SizedBox(
+                                    height: 220,
+                                    width: 300,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Card(
+                                        elevation: 5,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(30),
+                                        ),
+                                        child: Center(
+                                          child: Column(
+
+                                            children: [
+                                              SizedBox(
+                                                height: SizeConfig.blockSizeVertical * 2,
+                                              ),
+
+                                                  Image.asset('assets/2.png',
+                                                    width: 70,
+                                                    height: 70,
+                                                    fit: BoxFit.cover,),
+                                              SizedBox(
+                                                height: SizeConfig.blockSizeVertical * 2,
+                                              ),
+                                                  PrimaryText(
+                                                    text: 'Gestion des parkings',
+                                                    size: 18,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+
+
+
+
+                                              SizedBox(
+                                                height: SizeConfig.blockSizeVertical * 2,
+                                              ),
+                                              PrimaryText(
+                                                  text: 'ajout, modification\n ou suppression',
+                                                  color: AppColors.secondary,
+                                                  size: 16),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+
+                                    )
+                                ),
+                                //
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    print('onTap');
+                                  },
+                                  child:
+                                  SizedBox(
+                                      height: 220,
+                                      width: 300,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Card(
+                                          elevation: 5,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(30),
+                                          ),
+                                          child: Center(
+                                            child: Column(
+
+                                              children: [
+                                                SizedBox(
+                                                  height: SizeConfig.blockSizeVertical * 2,
+                                                ),
+
+                                                Image.asset('assets/4.png',
+                                                  width: 70,
+                                                  height: 70,
+                                                  fit: BoxFit.cover,),
+                                                SizedBox(
+                                                  height: SizeConfig.blockSizeVertical * 2,
+                                                ),
+                                                PrimaryText(
+                                                  text: 'Statistique',
+                                                  size: 18,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+
+
+
+
+                                                SizedBox(
+                                                  height: SizeConfig.blockSizeVertical * 2,
+                                                ),
+                                                PrimaryText(
+                                                    text: 'ajout, modification ',
+                                                    color: AppColors.secondary,
+                                                    size: 16),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+
+                                      )
+                                  ),
+                                  //
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    print('onTap');
+                                  },
+                                  child:
+                                  SizedBox(
+                                      height: 220,
+                                      width: 300,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Card(
+                                          elevation: 5,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(30),
+                                          ),
+                                          child: Center(
+                                            child: Column(
+
+                                              children: [
+                                                SizedBox(
+                                                  height: SizeConfig.blockSizeVertical * 2,
+                                                ),
+
+                                                Image.asset('assets/3.png',
+                                                  width: 70,
+                                                  height: 70,
+                                                  fit: BoxFit.cover,),
+                                                SizedBox(
+                                                  height: SizeConfig.blockSizeVertical * 2,
+                                                ),
+                                                PrimaryText(
+                                                  text: 'Utilisateur',
+                                                  size: 18,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+
+
+
+
+                                                SizedBox(
+                                                  height: SizeConfig.blockSizeVertical * 2,
+                                                ),
+                                                PrimaryText(
+                                                    text: 'test',
+                                                    color: AppColors.secondary,
+                                                    size: 16),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+
+                                      )
+                                  ),
+                                  //
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    print('onTap');
+                                  },
+                                  child:
+                                  SizedBox(
+                                      height: 200,
+                                      width: 450,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Card(
+                                          elevation: 5,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(30),
+                                          ),
+                                          child: Center(
+                                            child: Column(
+
+                                              children: [
+                                                SizedBox(
+                                                  height: SizeConfig.blockSizeVertical * 2,
+                                                ),
+
+                                                Image.asset('assets/1.png',
+                                                  width: 70,
+                                                  height: 70,
+                                                  fit: BoxFit.cover,),
+                                                SizedBox(
+                                                  height: SizeConfig.blockSizeVertical * 2,
+                                                ),
+                                                PrimaryText(
+                                                  text: 'Les reclamations',
+                                                  size: 18,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+
+
+
+
+                                                SizedBox(
+                                                  height: SizeConfig.blockSizeVertical * 2,
+                                                ),
+                                                PrimaryText(
+                                                    text: 'les résclamations de l\'application et les parkings',
+                                                    color: AppColors.secondary,
+                                                    size: 16),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+
+                                      )
+                                  ),
+                                  //
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    print('onTap');
+                                  },
+                                  child:
+                                  SizedBox(
+                                      height: 200,
+                                      width: 450,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Card(
+                                          elevation: 5,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(30),
+                                          ),
+                                          child: Center(
+                                            child: Column(
+
+                                              children: [
+                                                SizedBox(
+                                                  height: SizeConfig.blockSizeVertical * 2,
+                                                ),
+
+                                                Image.asset('assets/5.png',
+                                                  width: 70,
+                                                  height: 70,
+                                                  fit: BoxFit.cover,),
+                                                SizedBox(
+                                                  height: SizeConfig.blockSizeVertical * 2,
+                                                ),
+                                                PrimaryText(
+                                                  text: 'Les annonces des objets trouvés et perdus',
+                                                  size: 18,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+
+
+
+
+                                                SizedBox(
+                                                  height: SizeConfig.blockSizeVertical * 2,
+                                                ),
+                                                PrimaryText(
+                                                    text: 'Signaler un objet trouvé',
+                                                    color: AppColors.secondary,
+                                                    size: 16),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+
+                                      )
+                                  ),
+                                  //
+                                ),
+                              ],
+                            ),
+
+                            // Widget to display the list of project
+                          ],
                         ),
+
+                              /*
+
+
+                              InfoCard(
+                                  icon: 'assets/4.svg',
+                                  label: '',
+                                  amount: 'Statistique'),
+                              InfoCard(
+                                  icon: 'assets/3.svg',
+                                  label: 'Utilisateur',
+                                  amount: 'voir les utilisateur'),
+                              */
+
+
+
                         SizedBox(
                           height: SizeConfig.blockSizeVertical * 4,
                         ),
@@ -145,7 +431,7 @@ final user=FirebaseAuth.instance.currentUser;
                           height: SizeConfig.blockSizeVertical * 3,
                         ),
                         HistoryTable(),
-                        if (!Responsive.isDesktop(context)) PaymentDetailList()
+                        if (!Responsive.isDesktop(context)) DetailList()
                       ],
                     ),
                   ),
@@ -164,7 +450,7 @@ final user=FirebaseAuth.instance.currentUser;
                       child: Column(
                         children: [
                           AppBarActionItems(),
-                          PaymentDetailList(),
+                          DetailList(),
                         ],
                       ),
                     ),
