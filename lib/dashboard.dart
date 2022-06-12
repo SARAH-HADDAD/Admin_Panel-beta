@@ -8,10 +8,14 @@ import 'package:responsive_dashboard/component/DetailList.dart';
 import 'package:responsive_dashboard/component/sideMenu.dart';
 import 'package:responsive_dashboard/config/responsive.dart';
 import 'package:responsive_dashboard/config/size_config.dart';
+import 'package:responsive_dashboard/fonctionnalit%C3%A9s/Statistique/Statistique.dart';
 import 'package:responsive_dashboard/home_page.dart';
 import 'package:responsive_dashboard/style/colors.dart';
 import 'package:responsive_dashboard/style/style.dart';
 import 'fonctionnalités/GestionDesParkings/gestionDesParkings.dart';
+import 'fonctionnalités/Annonces/Annonces.dart';
+import 'fonctionnalités/Utilisateur/Utilisateur.dart';
+import 'fonctionnalités/Reclamations/Reclamations.dart';
 import 'package:flutter_svg/avd.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -129,6 +133,8 @@ final user=FirebaseAuth.instance.currentUser;
                                 ),
                                 GestureDetector(
                                   onTap: () {
+                                    Navigator.pushReplacement(
+                                        context, MaterialPageRoute(builder: (BuildContext context) => Statistique()));
                                     print('onTap');
                                   },
                                   child:
@@ -184,6 +190,8 @@ final user=FirebaseAuth.instance.currentUser;
                                 ),
                                 GestureDetector(
                                   onTap: () {
+                                    Navigator.pushReplacement(
+                                        context, MaterialPageRoute(builder: (BuildContext context) => Users()));
                                     print('onTap');
                                   },
                                   child:
@@ -243,6 +251,8 @@ final user=FirebaseAuth.instance.currentUser;
                               children: [
                                 GestureDetector(
                                   onTap: () {
+                                    Navigator.pushReplacement(
+                                        context, MaterialPageRoute(builder: (BuildContext context) => Reclamation()));
                                     print('onTap');
                                   },
                                   child:
@@ -298,6 +308,8 @@ final user=FirebaseAuth.instance.currentUser;
                                 ),
                                 GestureDetector(
                                   onTap: () {
+                                    Navigator.pushReplacement(
+                                        context, MaterialPageRoute(builder: (BuildContext context) => Annonces()));
                                     print('onTap');
                                   },
                                   child:

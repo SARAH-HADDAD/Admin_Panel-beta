@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_dashboard/config/size_config.dart';
+import 'package:responsive_dashboard/fonctionnalit%C3%A9s/Statistique/Statistique.dart';
 import 'package:responsive_dashboard/style/colors.dart';
+import '../fonctionnalités/GestionDesParkings/gestionDesParkings.dart';
+import '../fonctionnalités/Annonces/Annonces.dart';
+import '../fonctionnalités/Utilisateur/Utilisateur.dart';
+import '../fonctionnalités/Reclamations/Reclamations.dart';
+import '../dashboard.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({
@@ -39,7 +45,10 @@ class SideMenu extends StatelessWidget {
                     'assets/0.png',
 
                   ),
-                  onPressed: () {}),
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context, MaterialPageRoute(builder: (BuildContext context) => Dashboard()));
+                  }),
               IconButton(
                   iconSize: 35,
                   padding: EdgeInsets.symmetric(vertical: 20.0),
@@ -47,14 +56,18 @@ class SideMenu extends StatelessWidget {
                     'assets/1.png',
 
                   ),
-                  onPressed: () {}),
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context, MaterialPageRoute(builder: (BuildContext context) => Reclamation()));
+                  }),
               IconButton(
                   iconSize: 35,
                   padding: EdgeInsets.symmetric(vertical: 20.0),
                   icon: Image.asset(
                     'assets/2.png'
                   ),
-                  onPressed: () {}),
+                  onPressed: () {Navigator.pushReplacement(
+                      context, MaterialPageRoute(builder: (BuildContext context) => GestionParking()));}),
               IconButton(
                   iconSize: 35,
                   padding: EdgeInsets.symmetric(vertical: 20.0),
@@ -62,7 +75,8 @@ class SideMenu extends StatelessWidget {
                     'assets/3.png',
 
                   ),
-                  onPressed: () {}),
+                  onPressed: () {Navigator.pushReplacement(
+                      context, MaterialPageRoute(builder: (BuildContext context) => Users()));}),
               IconButton(
                   iconSize: 35,
                   padding: EdgeInsets.symmetric(vertical: 20.0),
@@ -70,7 +84,8 @@ class SideMenu extends StatelessWidget {
                     'assets/4.png',
 
                   ),
-                  onPressed: () {}),
+                  onPressed: () {Navigator.pushReplacement(
+                      context, MaterialPageRoute(builder: (BuildContext context) => Statistique()));}),
               IconButton(
                   iconSize: 35,
                   padding: EdgeInsets.symmetric(vertical: 20.0),
@@ -78,7 +93,8 @@ class SideMenu extends StatelessWidget {
                     'assets/5.png',
 
                   ),
-                  onPressed: () {}),
+                  onPressed: () {Navigator.pushReplacement(
+                      context, MaterialPageRoute(builder: (BuildContext context) => Annonces()));}),
               IconButton(
                   iconSize: 35,
                   padding: EdgeInsets.symmetric(vertical: 20.0),
