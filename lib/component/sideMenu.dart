@@ -31,52 +31,60 @@ class SideMenu extends StatelessWidget {
                     child: SvgPicture.asset('assets/mac-action.svg'),
                   ),
              ),
-            
+
               IconButton(
-                  iconSize: 20,
-                  padding: EdgeInsets.symmetric(vertical: 20.0),
-                  icon: SvgPicture.asset(
-                    'assets/home.svg',
-                    color: AppColors.iconGray,
-                  ),
-                  onPressed: () {}),
-              IconButton(
-                  iconSize: 20,
-                  padding: EdgeInsets.symmetric(vertical: 20.0),
-                  icon: SvgPicture.asset(
-                    'assets/1.svg',
-                    color: AppColors.iconGray,
-                  ),
-                  onPressed: () {}),
-              IconButton(
-                  iconSize: 20,
+                  iconSize: 35,
                   padding: EdgeInsets.symmetric(vertical: 20.0),
                   icon: Image.asset(
-                    'assets/card.png'
+                    'assets/0.png',
+
                   ),
                   onPressed: () {}),
               IconButton(
-                  iconSize: 20,
+                  iconSize: 35,
                   padding: EdgeInsets.symmetric(vertical: 20.0),
-                  icon: SvgPicture.asset(
-                    'assets/credit-card.svg',
-                    color: AppColors.iconGray,
+                  icon: Image.asset(
+                    'assets/1.png',
+
                   ),
                   onPressed: () {}),
               IconButton(
-                  iconSize: 20,
+                  iconSize: 35,
                   padding: EdgeInsets.symmetric(vertical: 20.0),
-                  icon: SvgPicture.asset(
-                    'assets/trophy.svg',
-                    color: AppColors.iconGray,
+                  icon: Image.asset(
+                    'assets/2.png'
                   ),
                   onPressed: () {}),
               IconButton(
-                  iconSize: 20,
+                  iconSize: 35,
                   padding: EdgeInsets.symmetric(vertical: 20.0),
-                  icon: SvgPicture.asset(
-                    'assets/invoice.svg',
-                    color: AppColors.iconGray,
+                  icon: Image.asset(
+                    'assets/3.png',
+
+                  ),
+                  onPressed: () {}),
+              IconButton(
+                  iconSize: 35,
+                  padding: EdgeInsets.symmetric(vertical: 20.0),
+                  icon:Image.asset(
+                    'assets/4.png',
+
+                  ),
+                  onPressed: () {}),
+              IconButton(
+                  iconSize: 35,
+                  padding: EdgeInsets.symmetric(vertical: 20.0),
+                  icon: Image.asset(
+                    'assets/5.png',
+
+                  ),
+                  onPressed: () {}),
+              IconButton(
+                  iconSize: 35,
+                  padding: EdgeInsets.symmetric(vertical: 20.0),
+                  icon: Image.asset(
+                    'assets/6.png',
+
                   ),
                   onPressed: () {}),
             ],

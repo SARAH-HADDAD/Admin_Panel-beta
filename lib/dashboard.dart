@@ -11,6 +11,7 @@ import 'package:responsive_dashboard/config/size_config.dart';
 import 'package:responsive_dashboard/home_page.dart';
 import 'package:responsive_dashboard/style/colors.dart';
 import 'package:responsive_dashboard/style/style.dart';
+import 'fonctionnalités/GestionDesParkings/gestionDesParkings.dart';
 import 'package:flutter_svg/avd.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -72,7 +73,7 @@ final user=FirebaseAuth.instance.currentUser;
                                   onTap: () {
 
                                       Navigator.pushReplacement(
-                                          context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+                                          context, MaterialPageRoute(builder: (BuildContext context) => GestionParking()));
                                     print('onTap');
                                   },
                                 child:
