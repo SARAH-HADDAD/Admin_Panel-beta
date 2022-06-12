@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_dashboard/component/appBarActionItems.dart';
@@ -9,6 +10,7 @@ import 'package:responsive_dashboard/component/sideMenu.dart';
 import 'package:responsive_dashboard/config/responsive.dart';
 import 'package:responsive_dashboard/config/size_config.dart';
 import 'package:responsive_dashboard/home_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:responsive_dashboard/style/colors.dart';
 import 'package:responsive_dashboard/style/style.dart';
 import 'package:flutter_svg/avd.dart';
@@ -20,12 +22,136 @@ class GestionParking extends StatefulWidget {
 
 
   @override
-  State<GestionParking> createState() => _GestionParkingState();
+  State<GestionParking> createState() => _Gestionparkingtate();
 }
 
-class _GestionParkingState extends State<GestionParking> {
+class _Gestionparkingtate extends State<GestionParking> {
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   final user=FirebaseAuth.instance.currentUser;
+
+  // text fields' controllers
+  final TextEditingController _nomController = TextEditingController();
+  final TextEditingController _ratingController = TextEditingController();
+  final CollectionReference _parking =
+  FirebaseFirestore.instance.collection('parking');
+
+  Future<void> _create([DocumentSnapshot documentSnapshot]) async {
+
+    await showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext ctx) {
+          return Padding(
+            padding: EdgeInsets.only(
+                top: 20,
+                left: 20,
+                right: 20,
+                bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextField(
+                  controller: _nomController,
+                  decoration: const InputDecoration(labelText: 'nom'),
+                ),
+                TextField(
+                  keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
+                  controller: _ratingController,
+                  decoration: const InputDecoration(
+                    labelText: 'rating',
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                ElevatedButton(
+                  child: const Text('Create'),
+                  onPressed: () async {
+                    final String nom = _nomController.text;
+                    final double rating =
+                    double.tryParse(_ratingController.text);
+                    if (rating != null) {
+                      await _parking.add({"nom": nom, "rating": rating});
+
+                      _nomController.text = '';
+                      _ratingController.text = '';
+                      Navigator.of(context).pop();
+                    }
+                  },
+                )
+              ],
+            ),
+          );
+
+        });
+  }
+  Future<void> _update([DocumentSnapshot documentSnapshot]) async {
+    if (documentSnapshot != null) {
+
+      _nomController.text = documentSnapshot['nom'];
+      _ratingController.text = documentSnapshot['rating'].toString();
+    }
+
+    await showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext ctx) {
+          return Padding(
+            padding: EdgeInsets.only(
+                top: 20,
+                left: 20,
+                right: 20,
+                bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextField(
+                  controller: _nomController,
+                  decoration: const InputDecoration(labelText: 'nom'),
+                ),
+                TextField(
+                  keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
+                  controller: _ratingController,
+                  decoration: const InputDecoration(
+                    labelText: 'rating',
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                ElevatedButton(
+                  child: const Text( 'Update'),
+                  onPressed: () async {
+                    final String nom = _nomController.text;
+                    final double rating =
+                    double.tryParse(_ratingController.text);
+                    if (rating != null) {
+
+                      await _parking
+                          .doc(documentSnapshot.id)
+                          .update({"nom": nom, "rating": rating});
+                      _nomController.text = '';
+                      _ratingController.text = '';
+                      Navigator.of(context).pop();
+                    }
+                  },
+                )
+              ],
+            ),
+          );
+        });
+  }
+
+  Future<void> _delete(String productId) async {
+    await _parking.doc(productId).delete();
+
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('You have successfully deleted a product')));
+  }
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -49,7 +175,7 @@ class _GestionParkingState extends State<GestionParking> {
         preferredSize: Size.zero,
         child: SizedBox(),
       ),
-      body: SafeArea(
+      body:SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -59,100 +185,62 @@ class _GestionParkingState extends State<GestionParking> {
                 child: SideMenu(),
               ),
             Expanded(
-                flex: 10,
-                child: SafeArea(
-                  child: SingleChildScrollView(
-                    padding: EdgeInsets.symmetric(vertical: 30, horizontal: 30),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SizedBox(
-                                child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      PrimaryText(
-                                          text: 'Gestion des parkings',
-                                          size: 30,
-                                          fontWeight: FontWeight.w800),
-                                    ]),
-                              ),
-                            ]),
-                        SizedBox(
-                          height: 30,
-                        ),
-
-                        SizedBox(
-                          height: SizeConfig.blockSizeVertical * 4,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                PrimaryText(
-                                  text: 'Balance',
-                                  size: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.secondary,
+              flex: 10,
+              child: SafeArea(
+                child: StreamBuilder(
+                  stream: _parking.snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                    if (streamSnapshot.hasData) {
+                      return ListView.builder(
+                        itemCount: streamSnapshot.data.docs.length,
+                        itemBuilder: (context, index) {
+                          final DocumentSnapshot documentSnapshot =
+                          streamSnapshot.data.docs[index];
+                          return Card(
+                            margin: const EdgeInsets.all(10),
+                            child: ListTile(
+                              title: Text(documentSnapshot['nom']),
+                              subtitle: Text(documentSnapshot['rating'].toString()),
+                              trailing: SizedBox(
+                                width: 100,
+                                child: Row(
+                                  children: [
+                                    IconButton(
+                                        icon: const Icon(Icons.edit),
+                                        onPressed: () =>
+                                            _update(documentSnapshot)),
+                                    IconButton(
+                                        icon: const Icon(Icons.delete),
+                                        onPressed: () =>
+                                            _delete(documentSnapshot.id)),
+                                  ],
                                 ),
-                                PrimaryText(
-                                    text: '\$1500',
-                                    size: 30,
-                                    fontWeight: FontWeight.w800),
-                              ],
+                              ),
                             ),
-                            PrimaryText(
-                              text: 'Past 30 DAYS',
-                              size: 16,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.secondary,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: SizeConfig.blockSizeVertical * 3,
-                        ),
-                        Container(
-                          height: 180,
-                          child: BarChartCopmponent(),
-                        ),
-                        SizedBox(
-                          height: SizeConfig.blockSizeVertical * 5,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            PrimaryText(
-                                text: 'History',
-                                size: 30,
-                                fontWeight: FontWeight.w800),
-                            PrimaryText(
-                              text: 'Transaction of lat 6 month',
-                              size: 16,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.secondary,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: SizeConfig.blockSizeVertical * 3,
-                        ),
-                        HistoryTable(),
-                        if (!Responsive.isDesktop(context)) DetailList()
-                      ],
-                    ),
-                  ),
-                )),
+                          );
+                        },
+                      );
+                    }
+
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  },
+                ),
+              ),
+            ),
           ],
         ),
       ),
+// Add new product
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => _create(),
+          child: const Icon(Icons.add),
+
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat
     );
+
   }
 }
 
